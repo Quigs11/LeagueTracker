@@ -32,13 +32,25 @@ if __name__ == '__main__':
         if p['puuid'] == puuid:
             team_id = p['teamId']
             early_surrender = p['teamEarlySurrendered']
-            break
+            conner = p
+        if p['summonerName'] == 'YungNutz':
+            justin = p
+        if p['summonerName'] == 'FORGEJackson':
+            josh = p
+        if p['summonerName'] == 'Jesus Juicy ':
+            andrew = p
     for t in teams:
         if t['teamId'] == team_id:
             team = t
             break
     result = 'Win' if team['win'] else 'Lose'
 
-    # Build logging structure
-    logging_info = [str(datetime.date.today()), result, early_surrender]
+    # Build logging structures
+    # Player structure [NAME, KILLS, DEATHS, TIME_SPENT_DEAD, DMG_TO_CHAMPIONS]
+    conner_log = ['Conner', conner['kills'], conner['deaths'], conner['totalTimeSpentDead'], conner['totalDamageDealtToChampions']]
+    andy_log = ['Andy', andrew['kills'], andrew['deaths'], andrew['totalTimeSpentDead'], andrew['totalDamageDealtToChampions']]
+    justin_log = ['Justin', justin['kills'], justin['deaths'], justin['totalTimeSpentDead'], justin['totalDamageDealtToChampions']]
+    josh_log = ['Josh', josh['kills'], josh['deaths'], josh['totalTimeSpentDead'], josh['totalDamageDealtToChampions']]
+
+    logging_info = [str(datetime.date.today()), result, early_surrender, conner_log, andy_log, justin_log, josh_log]
     print(logging_info)
