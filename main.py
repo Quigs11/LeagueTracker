@@ -45,12 +45,30 @@ if __name__ == '__main__':
             break
     result = 'Win' if team['win'] else 'Lose'
 
+    # Initialize logging structures in case any player is not present
+    conner_log = ['Conner', '', '', '', '']
+    andy_log = ['Andy', '', '', '', '']
+    justin_log = ['Justin', '', '', '', '']
+    josh_log = ['Josh', '', '', '', '']
+
     # Build logging structures
     # Player structure [NAME, KILLS, DEATHS, TIME_SPENT_DEAD, DMG_TO_CHAMPIONS]
-    conner_log = ['Conner', conner['kills'], conner['deaths'], conner['totalTimeSpentDead'], conner['totalDamageDealtToChampions']]
-    andy_log = ['Andy', andrew['kills'], andrew['deaths'], andrew['totalTimeSpentDead'], andrew['totalDamageDealtToChampions']]
-    justin_log = ['Justin', justin['kills'], justin['deaths'], justin['totalTimeSpentDead'], justin['totalDamageDealtToChampions']]
-    josh_log = ['Josh', josh['kills'], josh['deaths'], josh['totalTimeSpentDead'], josh['totalDamageDealtToChampions']]
+    try:
+        conner_log = ['Conner', conner['kills'], conner['deaths'], conner['totalTimeSpentDead'], conner['totalDamageDealtToChampions']]
+    except NameError:
+        print('Conner not found')
+    try:
+        andy_log = ['Andy', andrew['kills'], andrew['deaths'], andrew['totalTimeSpentDead'], andrew['totalDamageDealtToChampions']]
+    except NameError:
+        print('Andy not found')
+    try:
+        justin_log = ['Justin', justin['kills'], justin['deaths'], justin['totalTimeSpentDead'], justin['totalDamageDealtToChampions']]
+    except NameError:
+        print('Justin not found')
+    try:
+        josh_log = ['Josh', josh['kills'], josh['deaths'], josh['totalTimeSpentDead'], josh['totalDamageDealtToChampions']]
+    except NameError:
+        print('Josh not found')
 
     logging_info = [str(datetime.date.today()), result, early_surrender, conner_log, andy_log, justin_log, josh_log]
     print(logging_info)
