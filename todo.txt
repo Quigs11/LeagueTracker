@@ -1,0 +1,7 @@
+TODO List
+-------------
+-add wyatt, bhenning, kyle (easy) [Andy]
+-link into google sheets (medium) [Conner]
+-run on rasperry pi (medium) [Josh]
+-run automatically for each player (hard)
+
