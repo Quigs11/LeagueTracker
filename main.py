@@ -52,21 +52,21 @@ if __name__ == '__main__':
     josh_log = ['Josh', '', '', '', '']
 
     # Build logging structures
-    # Player structure [NAME, KILLS, DEATHS, TIME_SPENT_DEAD, DMG_TO_CHAMPIONS]
+    # Player structure [NAME, KILLS, DEATHS, ASSISTS, TIME_SPENT_DEAD, DMG_TO_CHAMPIONS]
     try:
-        conner_log = ['Conner', conner['kills'], conner['deaths'], conner['totalTimeSpentDead'], conner['totalDamageDealtToChampions']]
+        conner_log = ['Conner', conner['kills'], conner['deaths'], conner['assists'], conner['totalTimeSpentDead'], conner['totalDamageDealtToChampions']]
     except NameError:
         print('Conner not found')
     try:
-        andy_log = ['Andy', andrew['kills'], andrew['deaths'], andrew['totalTimeSpentDead'], andrew['totalDamageDealtToChampions']]
+        andy_log = ['Andy', andrew['kills'], andrew['deaths'], andrew['assists'], andrew['totalTimeSpentDead'], andrew['totalDamageDealtToChampions']]
     except NameError:
         print('Andy not found')
     try:
-        justin_log = ['Justin', justin['kills'], justin['deaths'], justin['totalTimeSpentDead'], justin['totalDamageDealtToChampions']]
+        justin_log = ['Justin', justin['kills'], justin['deaths'], justin['assists'], justin['totalTimeSpentDead'], justin['totalDamageDealtToChampions']]
     except NameError:
         print('Justin not found')
     try:
-        josh_log = ['Josh', josh['kills'], josh['deaths'], josh['totalTimeSpentDead'], josh['totalDamageDealtToChampions']]
+        josh_log = ['Josh', josh['kills'], josh['deaths'], josh['assists'], josh['totalTimeSpentDead'], josh['totalDamageDealtToChampions']]
     except NameError:
         print('Josh not found')
 
