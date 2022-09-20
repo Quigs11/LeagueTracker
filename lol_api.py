@@ -2,24 +2,25 @@ import app_config
 import requests
 import datetime
 
+
 def get_request(url):
     resp = requests.get(url)
     if resp.status_code != 200:
         raise Exception("GET request failed with status code " + str(resp.status_code))
-    resp_json = resp.json()
-    return resp_json
+    return resp.json()
+
 
 def pull_league_data():
     # Get puuid by summoner id
-    url = "https://na1.api.riotgames.com/lol/summoner/v4/summoners/by-name/+" + app_config.summoner_id + "?api_key=" + app_config.api_key
+    url = "https://na1.api.riotgames.com/lol/summoner/v4/summoners/by-name/+" + app_config.summoner_id + "?api_key=" + decrypt_key(app_config.lak)
     puuid = get_request(url)['puuid']
 
     # Get most recent aram game
-    url = "https://americas.api.riotgames.com/lol/match/v5/matches/by-puuid/" + puuid + "/ids?queue=450&api_key=" + app_config.api_key
+    url = "https://americas.api.riotgames.com/lol/match/v5/matches/by-puuid/" + puuid + "/ids?queue=450&api_key=" + decrypt_key(app_config.lak)
     game_id = get_request(url)[0]
 
     # Get aram game info
-    url = "https://americas.api.riotgames.com/lol/match/v5/matches/" + game_id + "?api_key=" + app_config.api_key
+    url = "https://americas.api.riotgames.com/lol/match/v5/matches/" + game_id + "?api_key=" + decrypt_key(app_config.lak)
     game_info = get_request(url)
     teams = game_info['info']['teams']
     participants = game_info['info']['participants']
@@ -75,3 +76,19 @@ def pull_league_data():
 
     logging_info = [str(game_date), result, early_surrender, conner_log, andy_log, justin_log, josh_log]
     return logging_info
+
+
+def encrypt_key(key):
+    res = ''
+    character = '&'
+    for c in key:
+        res = res + c + character
+    return res[::-1]
+
+
+def decrypt_key(key):
+    res = ''
+    for c in key:
+        if c != '&':
+            res += c
+    return res[::-1]
