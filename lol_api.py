@@ -2,6 +2,14 @@ import app_config
 import requests
 import datetime
 
+#Dictionary of tracked players
+playerlist = {
+    "Conner" : "Quigls",
+    "Andy" : "Jesus Juicy ",
+    "Justin" : "YungNutz",
+    "Josh" : "FORGEJackson",
+    "Kyle" : "IronMagician"    
+}
 
 def get_request(url):
     resp = requests.get(url)
@@ -29,52 +37,21 @@ def pull_league_data():
 
     # Determine which team is ours
     for p in participants:
-        if p['puuid'] == puuid:
+        if p['puuid'] == puuid: 
             team_id = p['teamId']
             early_surrender = p['teamEarlySurrendered']
-            conner = p
-        if p['summonerName'] == 'YungNutz':
-            justin = p
-        if p['summonerName'] == 'FORGEJackson':
-            josh = p
-        if p['summonerName'] == 'Jesus Juicy ':
-            andrew = p
-    for t in teams:
-        if t['teamId'] == team_id:
-            team = t
-            break
-    result = 'Win' if team['win'] else 'Lose'
+            for t in teams:
+                if t['teamId'] == team_id:
+                    team = t
+            result = 'Win' if team['win'] else 'Lose'
+            logging_info = [str(game_date), result, early_surrender]
 
-    # Initialize logging structures in case any player is not present
-    conner_log = ['Conner', '', '', '', '']
-    andy_log = ['Andy', '', '', '', '']
-    justin_log = ['Justin', '', '', '', '']
-    josh_log = ['Josh', '', '', '', '']
+    for p in participants:
+        for name in playerlist:
+            if p['summonerName'] == playerlist[name]:
+                currentPlayer = [name, p['kills'], p['deaths'], p['assists'], p['totalTimeSpentDead'],p['totalDamageDealtToChampions']]
+                logging_info.append(currentPlayer)
 
-    # Build logging structures
-    # Player structure [NAME, KILLS, DEATHS, ASSISTS, TIME_SPENT_DEAD, DMG_TO_CHAMPIONS]
-    try:
-        conner_log = ['Conner', conner['kills'], conner['deaths'], conner['assists'], conner['totalTimeSpentDead'],
-                      conner['totalDamageDealtToChampions']]
-    except NameError:
-        print('Conner not found')
-    try:
-        andy_log = ['Andy', andrew['kills'], andrew['deaths'], andrew['assists'], andrew['totalTimeSpentDead'],
-                    andrew['totalDamageDealtToChampions']]
-    except NameError:
-        print('Andy not found')
-    try:
-        justin_log = ['Justin', justin['kills'], justin['deaths'], justin['assists'], justin['totalTimeSpentDead'],
-                      justin['totalDamageDealtToChampions']]
-    except NameError:
-        print('Justin not found')
-    try:
-        josh_log = ['Josh', josh['kills'], josh['deaths'], josh['assists'], josh['totalTimeSpentDead'],
-                    josh['totalDamageDealtToChampions']]
-    except NameError:
-        print('Josh not found')
-
-    logging_info = [str(game_date), result, early_surrender, conner_log, andy_log, justin_log, josh_log]
     return logging_info
 
 
