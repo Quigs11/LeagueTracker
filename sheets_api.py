@@ -23,9 +23,9 @@ def write_data():
     sheets_data = lol_api.pull_league_data()
 
     # Give the data to write to General sheet
-    worksheet_name = 'General Data!'
+    worksheet_name = 'Justin Data!'
     cell_range_insert = 'A2'
-    values = [(sheets_data[0], sheets_data[1], sheets_data[2])]
+    values = [(sheets_data[0], sheets_data[5][1], sheets_data[5][2], sheets_data[5][3], sheets_data[5][4], sheets_data[5][5], sheets_data[5][6])]
     value_range_body = {
         'majorDimension': 'ROWS',
         'values': values

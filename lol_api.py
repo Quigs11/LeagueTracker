@@ -49,7 +49,7 @@ def pull_league_data():
     for p in participants:
         for name in playerlist:
             if p['summonerName'] == playerlist[name]:
-                currentPlayer = [name, p['kills'], p['deaths'], p['assists'], p['totalTimeSpentDead'],p['totalDamageDealtToChampions']]
+                currentPlayer = [name, p['kills'], p['deaths'], p['assists'], p['totalTimeSpentDead'],p['totalDamageDealtToChampions'],p['damageSelfMitigated']]
                 logging_info.append(currentPlayer)
 
     return logging_info
