@@ -25,7 +25,8 @@ def write_general():
     # Give the data to write to General sheet
     worksheet_name = 'General Data!'
     cell_range_insert = 'A2'
-    values = [(sheets_data[0], sheets_data[1], sheets_data[2])]
+    values = [(sheets_data[0], sheets_data[1], sheets_data[2], sheets_data[3])]
+
     value_range_body = {
         'majorDimension': 'ROWS',
         'values': values
@@ -41,16 +42,16 @@ def write_general():
 def write_player():
 
     # Loop to write to each player sheet
-    n = len(sheets_data)-3
+    n = len(sheets_data)-4
     for i in range(0, n):
 
-        player_name = sheets_data[3+i][0]
+        player_name = sheets_data[4+i][0]
 
         # Give the data to write to Player sheets
         worksheet_name = player_name + ' Data!'
         cell_range_insert = 'A2'
-        values = [(sheets_data[0], sheets_data[3+i][1], sheets_data[3+i][2], sheets_data[3+i][3], sheets_data[3+i][4],
-                   sheets_data[3+i][5], sheets_data[3+i][6])]
+        values = [(sheets_data[1], sheets_data[4+i][1], sheets_data[4+i][2], sheets_data[4+i][3], sheets_data[4+i][4],
+                   sheets_data[4+i][5], sheets_data[4+i][6])]
         value_range_body = {
             'majorDimension': 'ROWS',
             'values': values

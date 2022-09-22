@@ -30,6 +30,7 @@ def pull_league_data():
     # Get aram game info
     url = "https://americas.api.riotgames.com/lol/match/v5/matches/" + game_id + "?api_key=" + decrypt_key(app_config.lak)
     game_info = get_request(url)
+    game_id = game_info['metadata']['matchId']
     teams = game_info['info']['teams']
     participants = game_info['info']['participants']
     game_date_int = int(game_info['info']['gameEndTimestamp'])
@@ -44,7 +45,7 @@ def pull_league_data():
                 if t['teamId'] == team_id:
                     team = t
             result = 'Win' if team['win'] else 'Lose'
-            logging_info = [str(game_date), result, early_surrender]
+            logging_info = [str(game_id), str(game_date), result, early_surrender]
 
     for p in participants:
         for name in playerlist:
