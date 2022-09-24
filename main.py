@@ -1,6 +1,7 @@
 import app_config
 import lol_api
 import sheets_api
+import log
 
 if __name__ == '__main__':
 
@@ -10,5 +11,5 @@ if __name__ == '__main__':
     # Checks the previous game ID and writes new data
     sheets_api.check_id()
 
-
+    log.writeLog(sheets_api.sheets_data[0])
 
