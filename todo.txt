@@ -1,5 +1,4 @@
 TODO List
 -------------
--run on rasperry pi (medium) [Josh] --PI is READY--
--run automatically for each player (hard)
+
 
