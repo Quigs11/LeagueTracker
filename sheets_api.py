@@ -29,8 +29,15 @@ def check_id():
         range='General Data!A:A'
     ).execute()
 
-    # Check whether the most recent Game ID matches the Google Sheet
-    if sheets_data[0] != prev_id['values'][-1][-1]:
+    
+    # Check if Game ID exists in Column A
+    newID = True
+    for ID in prev_id['values'][0]:
+        if sheets_data[0] == ID:
+            newID = False
+
+    # Write data for new ID
+    if newID:
         # Write to Sheet if condition is met
         write_general()
         write_player()
