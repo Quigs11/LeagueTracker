@@ -9,7 +9,6 @@ if __name__ == '__main__':
     #print(lol_data)
 
     # Checks the previous game ID and writes new data
-    sheets_api.check_id()
-
-    log.writeLog(sheets_api.sheets_data[0])
+    for name, username in lol_api.playerlist.items():
+        sheets_api.check_id(username)
 
