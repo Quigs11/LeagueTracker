@@ -21,9 +21,9 @@ def get_request(url):
     return resp.json()
 
 
-def pull_league_data():
+def pull_league_data(summoner_id = app_config.summoner_id):
     # Get puuid by summoner id
-    url = "https://na1.api.riotgames.com/lol/summoner/v4/summoners/by-name/+" + app_config.summoner_id + "?api_key=" + decrypt_key(
+    url = "https://na1.api.riotgames.com/lol/summoner/v4/summoners/by-name/+" + summoner_id + "?api_key=" + decrypt_key(
         app_config.lak)
     puuid = get_request(url)['puuid']
 
