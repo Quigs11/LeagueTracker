@@ -2,14 +2,17 @@ import app_config
 import requests
 import datetime
 
-#Dictionary of tracked players
+# Dictionary of tracked players
 playerlist = {
-    "Conner" : "Quigls",
-    "Andy" : "Jesus Juicy ",
-    "Justin" : "YungNutz",
-    "Josh" : "FORGEJackson",
-    "Kyle" : "IronMagician"    
+    "Conner": "Quigls",
+    "Andy": "Jesus Juicy ",
+    "Justin": "YungNutz",
+    "Josh": "FORGEJackson",
+    "Kyle": "IronMagician",
+    "Wyatt": "AngryTheMonkey",
+    "Bhenning": "dukyo"
 }
+
 
 def get_request(url):
     resp = requests.get(url)
@@ -20,25 +23,29 @@ def get_request(url):
 
 def pull_league_data():
     # Get puuid by summoner id
-    url = "https://na1.api.riotgames.com/lol/summoner/v4/summoners/by-name/+" + app_config.summoner_id + "?api_key=" + decrypt_key(app_config.lak)
+    url = "https://na1.api.riotgames.com/lol/summoner/v4/summoners/by-name/+" + app_config.summoner_id + "?api_key=" + decrypt_key(
+        app_config.lak)
     puuid = get_request(url)['puuid']
 
     # Get most recent aram game
-    url = "https://americas.api.riotgames.com/lol/match/v5/matches/by-puuid/" + puuid + "/ids?queue=450&api_key=" + decrypt_key(app_config.lak)
+    url = "https://americas.api.riotgames.com/lol/match/v5/matches/by-puuid/" + puuid + "/ids?queue=450&api_key=" + decrypt_key(
+        app_config.lak)
     game_id = get_request(url)[0]
 
     # Get aram game info
-    url = "https://americas.api.riotgames.com/lol/match/v5/matches/" + game_id + "?api_key=" + decrypt_key(app_config.lak)
+    url = "https://americas.api.riotgames.com/lol/match/v5/matches/" + game_id + "?api_key=" + decrypt_key(
+        app_config.lak)
     game_info = get_request(url)
     game_id = game_info['metadata']['matchId']
     teams = game_info['info']['teams']
     participants = game_info['info']['participants']
     game_date_int = int(game_info['info']['gameEndTimestamp'])
-    game_date = datetime.datetime.fromtimestamp(game_date_int / 1000).date()  # divide by 1000 to go from milliseconds to seconds
+    game_date = datetime.datetime.fromtimestamp(
+        game_date_int / 1000).date()  # divide by 1000 to go from milliseconds to seconds
 
     # Determine which team is ours
     for p in participants:
-        if p['puuid'] == puuid: 
+        if p['puuid'] == puuid:
             team_id = p['teamId']
             early_surrender = p['teamEarlySurrendered']
             for t in teams:
@@ -50,7 +57,8 @@ def pull_league_data():
     for p in participants:
         for name in playerlist:
             if p['summonerName'] == playerlist[name]:
-                currentPlayer = [name, p['kills'], p['deaths'], p['assists'], p['totalTimeSpentDead'],p['totalDamageDealtToChampions'],p['damageSelfMitigated']]
+                currentPlayer = [name, p['kills'], p['deaths'], p['assists'], p['totalTimeSpentDead'],
+                                 p['totalDamageDealtToChampions'], p['damageSelfMitigated']]
                 logging_info.append(currentPlayer)
 
     return logging_info

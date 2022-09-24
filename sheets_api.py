@@ -20,8 +20,23 @@ SCOPES = ['https://www.googleapis.com/auth/spreadsheets']
 # Create the service
 service = Create_Service(CLIENT_SECRET_FILE, API_NAME, API_VERSION, SCOPES)
 
-def write_general():
 
+def check_id():
+    # Pull most recent Game ID from Google Sheet
+    prev_id = service.spreadsheets().values().get(
+        spreadsheetId=spreadsheet_id,
+        majorDimension='COLUMNS',
+        range='General Data!A:A'
+    ).execute()
+
+    # Check whether the most recent Game ID matches the Google Sheet
+    if sheets_data[0] != prev_id['values'][-1][-1]:
+        # Write to Sheet if condition is met
+        write_general()
+        write_player()
+
+
+def write_general():
     # Give the data to write to General sheet
     worksheet_name = 'General Data!'
     cell_range_insert = 'A2'
@@ -39,19 +54,19 @@ def write_general():
         body=value_range_body
     ).execute()
 
+
 def write_player():
-
     # Loop to write to each player sheet
-    n = len(sheets_data)-4
+    n = len(sheets_data) - 4
     for i in range(0, n):
-
-        player_name = sheets_data[4+i][0]
+        player_name = sheets_data[4 + i][0]
 
         # Give the data to write to Player sheets
         worksheet_name = player_name + ' Data!'
         cell_range_insert = 'A2'
-        values = [(sheets_data[1], sheets_data[4+i][1], sheets_data[4+i][2], sheets_data[4+i][3], sheets_data[4+i][4],
-                   sheets_data[4+i][5], sheets_data[4+i][6])]
+        values = [
+            (sheets_data[1], sheets_data[4 + i][1], sheets_data[4 + i][2], sheets_data[4 + i][3], sheets_data[4 + i][4],
+             sheets_data[4 + i][5], sheets_data[4 + i][6])]
         value_range_body = {
             'majorDimension': 'ROWS',
             'values': values
@@ -63,4 +78,3 @@ def write_player():
             range=worksheet_name + cell_range_insert,
             body=value_range_body
         ).execute()
-
