@@ -13,7 +13,7 @@ def writeLog(gameID, message):
 
     #Append data to log
     with open("LeagueTracker.log", "a") as logfile:
-        if len(lines) >= 25:
+        if len(lines) >= 50:
             del lines[0]
 
          #Log current time and most recent game ID
