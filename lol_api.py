@@ -23,18 +23,15 @@ def get_request(url):
 
 def pull_league_data(summoner_id = app_config.summoner_id):
     # Get puuid by summoner id
-    url = "https://na1.api.riotgames.com/lol/summoner/v4/summoners/by-name/+" + summoner_id + "?api_key=" + decrypt_key(
-        app_config.lak)
+    url = "https://na1.api.riotgames.com/lol/summoner/v4/summoners/by-name/+" + summoner_id + "?api_key=" + app_config.lak
     puuid = get_request(url)['puuid']
 
     # Get most recent aram game
-    url = "https://americas.api.riotgames.com/lol/match/v5/matches/by-puuid/" + puuid + "/ids?queue=450&api_key=" + decrypt_key(
-        app_config.lak)
+    url = "https://americas.api.riotgames.com/lol/match/v5/matches/by-puuid/" + puuid + "/ids?queue=450&api_key=" + app_config.lak
     game_id = get_request(url)[0]
 
     # Get aram game info
-    url = "https://americas.api.riotgames.com/lol/match/v5/matches/" + game_id + "?api_key=" + decrypt_key(
-        app_config.lak)
+    url = "https://americas.api.riotgames.com/lol/match/v5/matches/" + game_id + "?api_key=" + app_config.lak
     game_info = get_request(url)
     game_id = game_info['metadata']['matchId']
     teams = game_info['info']['teams']
