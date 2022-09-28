@@ -12,7 +12,7 @@ import log
 spreadsheet_id = '1jrBrtiVtg94Btdb3Onqf9RY1OXX2OFnwKc6ji4m6VoI'
 
 # Google API requirements
-CLIENT_SECRET_FILE = 'LeagueTrackerGoogle.json'
+CLIENT_SECRET_FILE = 'LeagueTracker.json'
 API_NAME = 'sheets'
 API_VERSION = 'v4'
 SCOPES = ['https://www.googleapis.com/auth/spreadsheets']
