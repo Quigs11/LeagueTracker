@@ -18,6 +18,7 @@ def writeLog(gameID, message):
 
          #Log current time and most recent game ID
         newline = datetime.now().strftime(f"%Y-%m-%d, %H:%M:%S -- gameID: {gameID} -- {message}\n")
+        print(newline)
         lines.append(newline)
 
         for line in lines:
